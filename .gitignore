@@ -10,7 +10,6 @@ env/
 .env
 
 # Data files (optional - remove if you want to include them)
-emails.json
 alunos.csv
 email_threads.json
 *.xlsx

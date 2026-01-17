@@ -1,0 +1,26 @@
+[
+   {
+      "receivedDateTime": "2025-01-15T10:30:00+00:00",
+      "subject": "Justificação de falta",
+      "conversationId": "ABC123",
+      "from": "maria.santos@email.com",
+      "toRecipients": "professor@escola.edu.pt",
+      "body": "<html><body><p>Bom dia Professor,</p><p>Venho por este meio justificar a falta do meu educando João Pedro no dia 14 de janeiro por motivo de doença.</p><p>Cumprimentos,</p><p>Maria Santos</p></body></html>"
+   },
+   {
+      "receivedDateTime": "2025-01-15T14:45:00+00:00",
+      "subject": "Re: Justificação de falta",
+      "conversationId": "ABC123",
+      "from": "professor@escola.edu.pt",
+      "toRecipients": "maria.santos@email.com",
+      "body": "<html><body><p>Boa tarde,</p><p>Obrigado pelo envio da justificação. A falta foi registada.</p><p>Atentamente,</p><p>Professor Silva</p></body></html>"
+   },
+   {
+      "receivedDateTime": "2025-01-16T09:00:00+00:00",
+      "subject": "Reunião de pais",
+      "conversationId": "DEF456",
+      "from": "carlos.ferreira@email.com",
+      "toRecipients": "professor@escola.edu.pt",
+      "body": "<html><body><p>Bom dia,</p><p>Não me será possível estar presente na reunião de pais de quarta-feira por motivos profissionais. Poderemos agendar outro horário?</p><p>Obrigado,</p><p>Carlos Ferreira</p></body></html>"
+   }
+]

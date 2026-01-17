@@ -49,7 +49,18 @@ client = OpenAI(
 
 def load_alunos(csv_path: str = 'alunos.csv') -> pd.DataFrame:
     """Load students data from CSV file."""
+    if not os.path.exists(csv_path):
+        print(f"\n⚠️  WARNING: File '{csv_path}' not found.")
+        print("   Summaries may lack proper student/guardian name identification.")
+        print("   See alunos.example.csv for the expected format.\n")
+        return pd.DataFrame(columns=['nome_aluno', 'encarregado_de_educacao', 'emails_encarregado'])
+    
     df = pd.read_csv(csv_path)
+    
+    if df.empty:
+        print(f"\n⚠️  WARNING: File '{csv_path}' is empty.")
+        print("   Summaries may lack proper student/guardian name identification.\n")
+        return pd.DataFrame(columns=['nome_aluno', 'encarregado_de_educacao', 'emails_encarregado'])
     
     # Group by student and guardian, aggregating emails into a list
     df = df.groupby(['nome_aluno', 'encarregado_de_educacao'])['email_encarregado'].apply(list).reset_index()
@@ -268,6 +279,9 @@ def group_emails_by_thread(input_path: str, output_path: str = 'email_threads.js
 
 def get_alunos_context() -> str:
     """Generate explicit records for each guardian with student and email info."""
+    if df_alunos.empty:
+        return "(No student/guardian data available)"
+    
     lines = []
     for _, row in df_alunos.iterrows():
         emails = ', '.join(row['emails_encarregado'])

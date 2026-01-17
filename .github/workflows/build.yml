@@ -1,0 +1,69 @@
+name: Build macOS Executable
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller openai pandas openpyxl
+
+      - name: Build executable
+        run: |
+          pyinstaller \
+            --onedir \
+            --name summarize_emails \
+            --exclude-module tkinter \
+            --exclude-module matplotlib \
+            --exclude-module PIL \
+            --exclude-module Pillow \
+            --exclude-module IPython \
+            --exclude-module jupyter \
+            --exclude-module notebook \
+            --exclude-module pytest \
+            --exclude-module unittest \
+            --exclude-module test \
+            --exclude-module scipy \
+            --exclude-module zmq \
+            --exclude-module pygments \
+            --exclude-module jedi \
+            --exclude-module parso \
+            --strip \
+            --noupx \
+            summarize_emails.py
+
+      - name: Create zip archive
+        run: |
+          cd dist
+          zip -r summarize_emails-macos.zip summarize_emails/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: summarize_emails-macos
+          path: dist/summarize_emails-macos.zip
+          retention-days: 30
+
+      - name: Upload to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/summarize_emails-macos.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -154,3 +154,4 @@ The system prompt instructs the LLM to:
 - Use guardian/student names correctly
 - Ignore thank you messages, holiday wishes, and quoted content
 - Mark irrelevant threads as `[NÃO RELEVANTE]`
+
